@@ -4,7 +4,8 @@ import { getAppConfig } from "./config/config"
 import { log } from "./logger"
 
 import { connectMqtt, publish } from "./mqtt/mqtt-client"
-const Denon = require("denon-client")
+// @ts-ignore
+import * as Denon from "denon-client"
 
 let eventSource: EventSource
 let denonClient: any
@@ -14,7 +15,7 @@ type StateType = {
     volume: number
 }
 
-let state: StateType = {
+const state: StateType = {
     power: "OFF",
     volume: 0
 }
