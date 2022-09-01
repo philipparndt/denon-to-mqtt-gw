@@ -63,8 +63,8 @@ export const startApp = async () => {
     await triggerFullUpdate()
     log.info("Application is now ready.")
 
-    log.info("Scheduling token-update.")
-    const task = cron.schedule("* * * * *", triggerFullUpdate)
+    log.info("Scheduling refresh.")
+    const task = cron.schedule("0 0 * * *", triggerFullUpdate)
     task.start()
 
     return () => {
