@@ -1,0 +1,10 @@
+version: '2'
+
+services:
+  denonmqtt:
+    hostname: denonmqtt
+    image: pharndt/denonmqtt:${VERSION}
+    build: .
+    volumes:
+      - ./production/config:/var/lib/denon-to-mqtt-gw:ro
+    restart: "no"

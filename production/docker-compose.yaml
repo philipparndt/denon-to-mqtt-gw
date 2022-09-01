@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+    denonmqtt:
+        environment:
+            TZ: "Europe/Berlin"
+        hostname: denonmqtt
+        image: pharndt/denonmqtt
+        volumes:
+            - ./config:/var/lib/denon-to-mqtt-gw:rw
+        restart: always

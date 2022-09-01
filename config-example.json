@@ -1,0 +1,11 @@
+{
+    "mqtt": {
+        "url": "tcp://192.168.0.1:1883",
+        "retain": true,
+        "topic": "home/denon",
+        "qos": 2
+    },
+    "denon": {
+        "ip": "127.0.0.1"
+    }
+}
