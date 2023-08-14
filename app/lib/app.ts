@@ -1,4 +1,3 @@
-import EventSource from "eventsource"
 import cron from "node-cron"
 import { getAppConfig } from "./config/config"
 import { log } from "./logger"
