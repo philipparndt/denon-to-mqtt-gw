@@ -21,6 +21,7 @@ export type Config = {
     denon: ConfigDenon
     names: any,
     "send-full-update": boolean
+    loglevel: string
 }
 
 let appConfig: Config
@@ -32,7 +33,8 @@ const mqttDefaults = {
 }
 
 const configDefaults = {
-    "send-full-update": true
+    "send-full-update": true,
+    loglevel: "info"
 }
 
 export const applyDefaults = (config: any) => {
@@ -61,6 +63,7 @@ export const loadConfig = (file: string) => {
 
 export const applyConfig = (config: any) => {
     appConfig = applyDefaults(config)
+    log.configure(appConfig.loglevel.toUpperCase())
 }
 
 export const getAppConfig = () => {
