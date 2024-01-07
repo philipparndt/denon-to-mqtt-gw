@@ -20,6 +20,7 @@ const state: StateType = {
 }
 
 export const triggerFullUpdate = async () => {
+    log.debug("triggerFullUpdate")
     state.volume = await denonClient.getVolume()
     state.power = await denonClient.getPower()
     publishState()
@@ -31,22 +32,24 @@ const publishState = () => {
 
 const start = async () => {
     const ip = getAppConfig().denon.ip
-    console.log(`Connecting to Denon device on ${ip}`)
+    log.info("Connecting to Denon device on", ip)
     denonClient = new Denon.DenonClient(ip)
     await denonClient.connect()
 
     denonClient.on("masterVolumeChanged", (volume: any) => {
         state.volume = volume
+        log.debug("masterVolumeChanged", volume)
         publishState()
     })
 
     denonClient.on("powerChanged", (power: any) => {
         state.power = power
+        log.debug("powerChanged", power)
         publishState()
     })
 
     denonClient.on("error", async (error: any) => {
-        console.log(error)
+        log.error("error", error)
         state.power = "ERROR"
         publishState()
 
