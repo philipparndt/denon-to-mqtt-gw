@@ -43,7 +43,7 @@
     "dependencies": {
         "@icholy/duration": "5.1.0",
         "denon-client": "0.2.4",
-        "mqtt": "4.3.7",
+        "mqtt": "5.3.5",
         "node-cron": "3.0.2",
         "winston": "3.10.0",
         "winston-transport": "4.5.0"
