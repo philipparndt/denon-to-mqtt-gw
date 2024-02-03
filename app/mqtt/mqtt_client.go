@@ -35,7 +35,7 @@ func generateRandomClientID(length int) string {
 	for i := range result {
 		result[i] = charset[seededRand.Intn(len(charset))]
 	}
-	return "es_mqtt_" + string(result)
+	return "denon_mqtt_" + string(result)
 }
 
 func LogMessagesPublished() {
