@@ -12,7 +12,8 @@ Tested with AVR X1200W
 ```json
 {
   "power":"ON",
-  "volume":24.5
+  "volume":24.5,
+  "volumeMax": 98.0
 }
 ```
 
