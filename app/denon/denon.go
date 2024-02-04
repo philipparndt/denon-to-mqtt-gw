@@ -2,8 +2,8 @@ package denon
 
 import (
 	"fmt"
-	"github.com/philipparndt/denon-to-mqtt-gw/mqtt"
 	"github.com/philipparndt/go-logger"
+	"github.com/philipparndt/mqtt-gateway/client"
 	"net"
 	"os"
 	"strconv"
@@ -136,7 +136,7 @@ func run(servAddr string) {
 		}
 
 		if notify {
-			mqtt.PublishJSON("state", state)
+			client.PublishJSON("state", state)
 		}
 	}
 }
