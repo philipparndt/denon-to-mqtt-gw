@@ -2,10 +2,10 @@ package denon
 
 import (
 	"fmt"
+	"github.com/philipparndt/denon-to-mqtt-gw/mqtt"
+	"github.com/philipparndt/go-logger"
 	"net"
 	"os"
-	"rnd7/denon-mqtt/logger"
-	"rnd7/denon-mqtt/mqtt"
 	"strconv"
 	"strings"
 	"sync"
