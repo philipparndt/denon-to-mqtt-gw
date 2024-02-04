@@ -6,6 +6,8 @@ github.com/philipparndt/go-logger v1.0.0 h1:5khKl1q8q6FH74S1wF5KPl6DvdZnRdPKqKbB
 github.com/philipparndt/go-logger v1.0.0/go.mod h1:4mWf8eNH82GhKl5byAFwXcux9WPNuaePaPaAFbgjHXg=
 github.com/philipparndt/mqtt-gateway v1.0.0 h1:KT1SOr/3jZg85LY36i0cmi+F6lrXMbBf3LanNjY1FV8=
 github.com/philipparndt/mqtt-gateway v1.0.0/go.mod h1:orCWDqZuyRus3Sp/bHnuw5Bt05GbrNfXMQGO0f5d1Kc=
+github.com/philipparndt/mqtt-gateway v1.1.0 h1:tiq2o/6Zboz4Gk9iO5plVSCvjSZnwy7TTVA638KMquI=
+github.com/philipparndt/mqtt-gateway v1.1.0/go.mod h1:orCWDqZuyRus3Sp/bHnuw5Bt05GbrNfXMQGO0f5d1Kc=
 golang.org/x/net v0.17.0 h1:pVaXccu2ozPjCXewfr1S7xza/zcXTity9cCdXQYSjIM=
 golang.org/x/net v0.17.0/go.mod h1:NxSsAGuq816PNPmqtQdLE42eU2Fs7NoRIZrHJAlaCOE=
 golang.org/x/sync v0.1.0 h1:wsuoTGHzEhffawBOhz5CYhcrV4IdKZbEyZjBMuTp12o=

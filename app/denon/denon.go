@@ -3,7 +3,7 @@ package denon
 import (
 	"fmt"
 	"github.com/philipparndt/go-logger"
-	"github.com/philipparndt/mqtt-gateway/client"
+	"github.com/philipparndt/mqtt-gateway/mqtt"
 	"net"
 	"os"
 	"strconv"
@@ -136,7 +136,7 @@ func run(servAddr string) {
 		}
 
 		if notify {
-			client.PublishJSON("state", state)
+			mqtt.PublishJSON("state", state)
 		}
 	}
 }

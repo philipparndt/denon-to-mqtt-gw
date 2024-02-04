@@ -1,11 +1,11 @@
 package mqtt
 
 import (
-	"github.com/philipparndt/mqtt-gateway/client"
 	"github.com/philipparndt/mqtt-gateway/config"
+	"github.com/philipparndt/mqtt-gateway/mqtt"
 )
 
-func Start(config config.MQTTConfig, onMessage client.OnMessageListener) {
-	client.Start(config, "denon")
-	client.Subscribe(config.Topic+"/ports/+/poe/set", onMessage)
+func Start(config config.MQTTConfig, onMessage mqtt.OnMessageListener) {
+	mqtt.Start(config, "denon")
+	mqtt.Subscribe(config.Topic+"/ports/+/poe/set", onMessage)
 }

@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/philipparndt/go-logger v1.0.0
-	github.com/philipparndt/mqtt-gateway v1.0.0
+	github.com/philipparndt/mqtt-gateway v1.1.0
 )
 
 require (
