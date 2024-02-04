@@ -5,7 +5,6 @@ import (
 	"github.com/philipparndt/mqtt-gateway/mqtt"
 )
 
-func Start(config config.MQTTConfig, onMessage mqtt.OnMessageListener) {
+func Start(config config.MQTTConfig) {
 	mqtt.Start(config, "denon")
-	mqtt.Subscribe(config.Topic+"/ports/+/poe/set", onMessage)
 }
