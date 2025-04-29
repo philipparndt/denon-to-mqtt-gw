@@ -3,7 +3,7 @@ module github.com/philipparndt/denon-to-mqtt-gw
 go 1.24
 
 require (
-	github.com/philipparndt/go-logger v1.3.1
+	github.com/philipparndt/go-logger v1.4.0
 	github.com/philipparndt/mqtt-gateway v1.4.0
 )
 
