@@ -1,0 +1,62 @@
+project_name: denon-to-mqtt-gw
+version: 2
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: denon-to-mqtt-gw
+    main: ./main.go
+    binary: denon-to-mqtt-gw
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    env:
+      - CGO_ENABLED=0
+
+dockers:
+  - image_templates:
+      - "pharndt/denonmqtt:{{ .Tag }}-amd64"
+    dockerfile: Dockerfile
+    use: buildx
+    goos: linux
+    goarch: amd64
+    build_flag_templates:
+      - "--platform=linux/amd64"
+      - "--build-arg=BINARY=denon-to-mqtt-gw_linux_amd64_v1"
+    skip_push: false
+
+  - image_templates:
+      - "pharndt/denonmqtt:{{ .Tag }}-arm64"
+    dockerfile: Dockerfile
+    use: buildx
+    goos: linux
+    goarch: arm64
+    build_flag_templates:
+      - "--platform=linux/arm64"
+      - "--build-arg=BINARY=denon-to-mqtt-gw_linux_arm64"
+    skip_push: false
+
+docker_manifests:
+  - id: tag
+    name_template: "pharndt/denonmqtt:{{ .Tag }}"
+    image_templates:
+      - pharndt/denonmqtt:{{ .Tag }}-amd64
+      - pharndt/denonmqtt:{{ .Tag }}-arm64
+
+  - id: latest
+    name_template: "pharndt/denonmqtt:latest"
+    image_templates:
+      - pharndt/denonmqtt:{{ .Tag }}-amd64
+      - pharndt/denonmqtt:{{ .Tag }}-arm64
+
+release:
+  disable: false
+  mode: replace
+  draft: false
+  prerelease: auto
+  make_latest: true
+  skip_upload: true

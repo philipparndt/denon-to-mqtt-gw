@@ -1,28 +1,7 @@
-# syntax=docker/dockerfile:1
+# syntax=docker/dockerfile:1.16
+ARG BINARY
+FROM gcr.io/distroless/static:nonroot
 
-# Build the application from source
-FROM golang:1.24 AS build-stage
+COPY ${BINARY}/denon-to-mqtt-gw /denon
 
-WORKDIR /app
-
-COPY go.mod go.sum ./
-RUN go mod download
-
-COPY . ./
-
-RUN CGO_ENABLED=0 GOOS=linux go build -o /denon-to-mqtt-gw
-
-# Run the tests in the container
-FROM build-stage AS run-test-stage
-RUN go test -v ./...
-
-# Deploy the application binary into a lean image
-FROM gcr.io/distroless/base-debian11 AS build-release-stage
-
-WORKDIR /
-
-COPY --from=build-stage /denon-to-mqtt-gw /denon-to-mqtt-gw
-
-USER nonroot:nonroot
-
-ENTRYPOINT ["/denon-to-mqtt-gw", "/var/lib/denon-to-mqtt-gw/config.json"]
+ENTRYPOINT ["/denon", "/var/lib/denon-to-mqtt-gw/config.json"]
