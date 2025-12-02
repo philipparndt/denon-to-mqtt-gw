@@ -1,6 +1,6 @@
 module github.com/philipparndt/denon-to-mqtt-gw
 
-go 1.24
+go 1.24.0
 
 require (
 	github.com/philipparndt/go-logger v1.4.0
@@ -8,8 +8,8 @@ require (
 )
 
 require (
-	github.com/eclipse/paho.mqtt.golang v1.5.0 // indirect
+	github.com/eclipse/paho.mqtt.golang v1.5.1 // indirect
 	github.com/gorilla/websocket v1.5.3 // indirect
-	golang.org/x/net v0.40.0 // indirect
-	golang.org/x/sync v0.14.0 // indirect
+	golang.org/x/net v0.44.0 // indirect
+	golang.org/x/sync v0.17.0 // indirect
 )
