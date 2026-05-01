@@ -21,3 +21,4 @@ config-auth.json
 
 .idea
 *.iml
+app/build

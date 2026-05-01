@@ -66,6 +66,10 @@ func parseStringToFloat(input string) (float64, error) {
 	return result, nil
 }
 
+func GetState() Message {
+	return state
+}
+
 var connectionWg sync.WaitGroup
 
 func Start(servAddr string) {
