@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.16
+# syntax=docker/dockerfile:1.26
 ARG BINARY
 FROM gcr.io/distroless/static:nonroot
 
