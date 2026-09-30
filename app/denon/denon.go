@@ -93,54 +93,65 @@ func run(servAddr string) {
 	}
 
 	reply := make([]byte, 1024)
+	var pending string
 	for {
-		_, err := connection.Read(reply)
+		n, err := connection.Read(reply)
 		if err != nil {
 			logger.Error("Read from server failed:", err.Error())
 			os.Exit(1)
 		}
 
-		notify := false
+		var lines []string
+		lines, pending = splitReplies(pending, reply[:n])
 
-		split := strings.Split(string(reply), "\r")
-		for _, s := range split {
-			trimmed := strings.TrimSpace(s)
-			if trimmed == "PWON" {
-				state.Power = "ON"
-				logger.Info("Power is on")
+		notify := false
+		for _, line := range lines {
+			if handleReply(line) {
 				notify = true
-			} else if trimmed == "PWSTANDBY" {
-				state.Power = "STANDBY"
-				logger.Info("Power is in standby")
-				notify = true
-			} else if strings.HasPrefix(trimmed, "MVMAX") {
-				float, err := parseStringToFloat(trimmed)
-				if err == nil {
-					logger.Info(fmt.Sprintf("Max Volume is %f", float))
-					state.VolumeMax = float
-					notify = true
-				} else {
-					logger.Error("Error parsing volume:", err.Error())
-				}
-			} else if strings.HasPrefix(trimmed, "MV") {
-				float, err := parseStringToFloat(trimmed)
-				if err == nil {
-					logger.Info(fmt.Sprintf("Volume is %f", float))
-					state.Volume = float
-					notify = true
-				} else {
-					logger.Error("Error parsing volume:", err.Error())
-				}
-			} else {
-				// logger.Info("unhandled reply from server=", trimmed, len(trimmed))
 			}
-			//if trimmed != "" {
-			//	logger.Info("reply from server=", trimmed, len(trimmed))
-			//}
 		}
 
 		if notify {
 			mqtt.PublishJSON("state", state)
 		}
 	}
+}
+
+// splitReplies appends data to pending and returns the complete, \r-terminated
+// replies. A reply cut off by the end of a read stays pending for the next one.
+func splitReplies(pending string, data []byte) ([]string, string) {
+	parts := strings.Split(pending+string(data), "\r")
+	return parts[:len(parts)-1], parts[len(parts)-1]
+}
+
+// handleReply applies one reply from the receiver to state and reports whether
+// it changed something worth publishing.
+func handleReply(reply string) bool {
+	trimmed := strings.TrimSpace(reply)
+	if trimmed == "PWON" {
+		state.Power = "ON"
+		logger.Info("Power is on")
+		return true
+	} else if trimmed == "PWSTANDBY" {
+		state.Power = "STANDBY"
+		logger.Info("Power is in standby")
+		return true
+	} else if strings.HasPrefix(trimmed, "MVMAX") {
+		float, err := parseStringToFloat(trimmed)
+		if err == nil {
+			logger.Info(fmt.Sprintf("Max Volume is %f", float))
+			state.VolumeMax = float
+			return true
+		}
+		logger.Error("Error parsing volume:", err.Error())
+	} else if strings.HasPrefix(trimmed, "MV") {
+		float, err := parseStringToFloat(trimmed)
+		if err == nil {
+			logger.Info(fmt.Sprintf("Volume is %f", float))
+			state.Volume = float
+			return true
+		}
+		logger.Error("Error parsing volume:", err.Error())
+	}
+	return false
 }
